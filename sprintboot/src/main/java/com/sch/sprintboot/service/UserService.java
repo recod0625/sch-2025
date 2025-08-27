@@ -9,7 +9,13 @@ import java.util.Map;
 
 @Service
 public class UserService {
-    UserRepository userRepository = new UserRepository();
+    //UserRepository userRepository = new UserRepository();
+
+    UserRepository userRepository;
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public Map<String, Object> login(User user) {
         UserRepository userRepository = new UserRepository();
