@@ -18,7 +18,7 @@ public class RestEmployeeController {
 
     // React --> 사원등록
     @PostMapping("/employees/register")
-    public String employeeRegister(@RequestBody Employee employee){
+    public int employeeRegister(@RequestBody Employee employee){
         return employeeService.register(employee);
     }
 
@@ -32,9 +32,8 @@ public class RestEmployeeController {
         this.employeeService = employeeService;
     }
 
-
     @PostMapping("/register")
-    public String register(@ModelAttribute Employee employee) {
+    public int register(@ModelAttribute Employee employee) {
         return employeeService.register(employee);
     }
 

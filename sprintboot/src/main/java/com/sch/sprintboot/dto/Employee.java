@@ -1,13 +1,29 @@
 package com.sch.sprintboot.dto;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Employee {
+
+    @Id
     private long sno;
+
     private String name;
     private String department;
     private String address;
+    private String edate;
 
     public long getSno() {
         return sno;
+    }
+
+    public String getEdate() {
+        return edate;
+    }
+
+    public void setEdate(String edate) {
+        this.edate = edate;
     }
 
     public void setSno(long sno) {
