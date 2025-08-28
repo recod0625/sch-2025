@@ -22,7 +22,7 @@ public class JdbcTemplateEmployeeRepository implements EmployeeRepositoryInterfa
 
     @Override
     public List<Employee> selectAll() {
-        String sql = "SELECT sno, name, address, edate FROM employee";
+        String sql = "SELECT sno, name, address, department, edate FROM employee";
         return jdbcTemplate.query(sql,
                 BeanPropertyRowMapper.newInstance(Employee.class));
     }
