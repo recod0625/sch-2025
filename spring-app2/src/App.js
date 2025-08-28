@@ -11,17 +11,17 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1 className="App-title">사원관리 프로그램(React)</h1>
+      <h1 className="App-title">회원관리 프로그램</h1>
       {page === "home" && (
         <p>
           <span
             className="App-link"
             onClick={() => handleChangePage("register")}
           >
-            사원 등록{" "}
+            회원 등록{" "}
           </span>
           <span className="App-link" onClick={() => handleChangePage("list")}>
-            사원 리스트
+            회원 리스트
           </span>
         </p>
       )}
@@ -34,7 +34,7 @@ export default function App() {
 }
 
 /**
- * 사원 등록 컴포넌트
+ * 회원 등록 컴포넌트
  */
 function EmployeeRegister(props) {
   const [sno] = useState(Math.floor(Math.random() * 100000));
@@ -52,7 +52,7 @@ function EmployeeRegister(props) {
     };
 
     axios
-      .post("http://localhost:8080/api/employees/register", data)
+      .post("http://localhost:8080/api/members/register", data)
       .then((response) => {
         if (response.data !== 0) {
           alert("가입이 완료되었습니다");
@@ -131,7 +131,7 @@ function EmployeeList(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/employees")
+      .get("http://localhost:8080/api/members")
       .then((response) => {
         console.log(response.data);
         setEmployeeList(response.data);

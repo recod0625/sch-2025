@@ -1,32 +1,42 @@
 package com.sch.sprintboot.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+
+import java.time.LocalDate;
 
 @Entity
 public class Employee {
 
     @Id
-    private long sno;
+    private int sno;
 
     private String name;
     private String department;
     private String address;
-    private String edate;
 
-    public long getSno() {
-        return sno;
+    @Column(name = "edate", nullable = true)
+    private LocalDate edate;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.edate == null) {
+            this.edate = LocalDate.now();
+        }
     }
 
-    public String getEdate() {
+    public LocalDate getEdate() {
         return edate;
     }
 
-    public void setEdate(String edate) {
-        this.edate = edate;
+    public int getSno() {
+        return sno;
     }
 
-    public void setSno(long sno) {
+    public void setSno(int sno) {
         this.sno = sno;
     }
 
