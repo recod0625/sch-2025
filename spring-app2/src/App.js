@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
   const [page, setPage] = useState("home");
@@ -11,7 +13,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1 className="App-title">회원관리 프로그램</h1>
+      <h1 className="App-title">회원관리 프로그램(React)</h1>
       {page === "home" && (
         <p>
           <span
@@ -41,7 +43,6 @@ function EmployeeRegister(props) {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [department, setDepartment] = useState("");
-  const [mdate, setMdate] = useState("");
 
   function handleSignup() {
     //스프링 부트 호출 및 연동
@@ -50,13 +51,13 @@ function EmployeeRegister(props) {
       name: name,
       address: address,
       department: department,
-      mdate: mdate,
     };
 
     axios
       .post("http://localhost:8080/api/members/register", data)
       .then((response) => {
-        if (response.data !== 0) {
+        console.log(response.data);
+        if (response.data !== "") {
           alert("가입이 완료되었습니다");
           props.handleChangePage("home");
         }
@@ -130,6 +131,7 @@ function EmployeeRegister(props) {
  */
 function EmployeeList(props) {
   const [employeeList, setEmployeeList] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     axios
@@ -139,7 +141,30 @@ function EmployeeList(props) {
         setEmployeeList(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [count]);
+
+  function handleDeleteSuccess() {
+    setCount(count - 1);
+  }
+
+   function handleDelete(sno) {
+    alert(sno);
+    //axios => 스프링부트의 삭제 로직 호출!!
+    const data = { sno: sno };
+    
+    axios
+      .post("http://localhost:8080/api/members/delete", data)
+      .then((response) => {
+        if (response.data === "ok") {
+          alert("삭제가 완료되었습니다");
+          handleDeleteSuccess();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      
+  }
 
   return (
     <div>
@@ -162,6 +187,11 @@ function EmployeeList(props) {
               <td>{employee.address}</td>
               <td>{employee.department}</td>
               <td>{employee.mdate}</td>
+              <td><FontAwesomeIcon
+                icon={faTrash}
+                className="trash"
+                onClick={() => handleDelete(employee.sno)}
+              /></td>
             </tr>
           ))}
         </tbody>

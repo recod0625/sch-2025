@@ -8,10 +8,19 @@ import java.util.List;
 
 @Repository
 public class JpaMemberRepository implements MemberRepositoryInterface {
-    EntityManager em;
+    private EntityManager em;
 
     public JpaMemberRepository(EntityManager em) {
         this.em = em;
+    }
+
+    public String delete(Long sno) {
+        Member findMember = em.find(Member.class, sno);
+        if (findMember != null) {
+            System.out.println(sno + "삭제됨");
+            em.remove(findMember);
+        }
+        return "ok";
     }
 
     @Override
