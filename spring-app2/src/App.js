@@ -41,6 +41,7 @@ function EmployeeRegister(props) {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [department, setDepartment] = useState("");
+  const [mdate, setMdate] = useState("");
 
   function handleSignup() {
     //스프링 부트 호출 및 연동
@@ -49,6 +50,7 @@ function EmployeeRegister(props) {
       name: name,
       address: address,
       department: department,
+      mdate: mdate,
     };
 
     axios
@@ -158,7 +160,7 @@ function EmployeeList(props) {
               <td>{employee.name}</td>
               <td>{employee.address}</td>
               <td>{employee.department}</td>
-              <td>{employee.edate}</td>
+              <td>{employee.mdate}</td>
             </tr>
           ))}
         </tbody>
