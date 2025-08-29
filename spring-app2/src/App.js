@@ -151,6 +151,7 @@ function EmployeeList(props) {
             <th>주소</th>
             <th>부서</th>
             <th>입사일</th>
+            <th>삭제</th>
           </tr>
         </thead>
         <tbody>
